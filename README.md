@@ -20,7 +20,8 @@ SignalR, Hangfire, Serilog, xUnit/Moq
 
 ## Architecture
 
-![ER Diagram](docs/erd.png)
+<img width="1623" height="752" alt="Untitled" src="https://github.com/user-attachments/assets/cd3267ec-fc38-492e-be4a-078fefb3960e" />
+
 
 ### Order lifecycle
 
