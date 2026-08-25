@@ -18,8 +18,27 @@ SignalR, Hangfire, Serilog, xUnit/Moq
 
 **Infra:** Docker, GitHub Actions, Azure
 
-## Architecture
 
+# Architecture Decisions
+
+## Why multi-tenancy?
+
+I chose a shared-database multi-tenant model — every tenant-owned table
+(Product, Order, Warehouse, User) has a TenantId column, and EF Core global
+query filters enforce isolation automatically at the data layer, so no query
+can accidentally leak one company's data into another's. I picked this over
+one-database-per-tenant because it's simpler to build, cheaper to run, and
+it's the standard pattern for SaaS platforms at this scale.
+
+## Why a message queue (RabbitMQ)?
+
+When an order is placed, several things need to happen — stock reservation,
+billing, notifications — but they shouldn't all be crammed into one big
+function inside the order-placement request. Publishing an OrderPlaced event
+to RabbitMQ decouples those steps, so each one can succeed or fail
+independently. This also makes the saga pattern possible: if payment fails
+after stock was already reserved, a compensating event releases that stock
+automatically instead of leaving the system in a broken state.
 <img width="1623" height="752" alt="Untitled" src="https://github.com/user-attachments/assets/cd3267ec-fc38-492e-be4a-078fefb3960e" />
 
 
