@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="FulfillmentPlatform.Api/FulfillmentPlatform.Api.csproj" />
+  <Project Path="FulfillmentPlatform.Domain/FulfillmentPlatform.Domain.csproj" />
+  <Project Path="FulfillmentPlatform.Infrastructure/FulfillmentPlatform.Infrastructure.csproj" />
+  <Project Path="FulfillmentPlatform.Tests/FulfillmentPlatform.Tests.csproj" />
+</Solution>
